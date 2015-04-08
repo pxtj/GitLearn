@@ -42,4 +42,5 @@
 11. 创建SSH Key：ssh-keygen -t rsa -C "youremail@example.com"
 	生成.ssh文件，其中id_rsa为私钥，id_rsa.pub为公钥。
 	将id_rsa.pub中的公钥添加到gitHub.com中。
-	
+12. 将工程合并到github.com上：在github上创建项目，然后根据提示绑定；
+	若以后修改之后，只需要通过git push origin master命令就可以合并到github.com中。
