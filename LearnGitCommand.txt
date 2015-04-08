@@ -1,0 +1,45 @@
+1.初始化仓库：git init
+2. 往仓库中添加文件：
+	git add <filename>	//将文件修改添加到暂存区
+	git commit -m "文件说明"	//将暂存区中的所有内容提交到当前分支
+	
+3. 查看仓库状态：git status
+4. 比较文件的不同，或者查看文件修改的地方：
+	git diff <filename>
+	
+5. 版本回退
+	查看历史记录：git log
+	查看精简的历史记录：git log --pretty=oneline
+	查看输入命令的记录：git reflog
+	版本表示：当前版本表示为HEAD，上一个版本表示为HEAD^，上上个版本表示为HEAD^^
+				上100个版本可以表示为HEAD~100
+	版本回退：git reset --hard <版本id>  举例：git reset --hard HEAD^ //表示返回到上一个版本；
+	
+6. 查看某一文件的内容：Linux命令，如 cat ，more等；
+7. Git的工作区和暂存区
+	（1）工作区（Working Direction）：所编辑的文件所在的目录；
+	（2）版本库（Repository）：工作区文件夹中的.git文件夹；
+	方式：git add <filename> 将文件修改信息从工作区添加到暂存区；
+		  git commit -m "说明" 将暂存区的信息添加到分支；
+8. Git跟踪的文件的修改而不是文件本身：每次修改如果不add到暂存区，那么当commit提交时就不会添加到分支中。
+9. 撤销修改：
+	命令：git checkout -- <文件名> 如：git checkout -- readme.txt 
+	（1）当文件自修改后还没有被add到暂存区，则撤销修改就会使文件回到与版本库分支中的文件一模一样；
+	（2）当文件已经add到暂存区，又作了修改，则插销修改就会回到与暂存区中的文件一样；
+	注：此命令中的 -- 一定要有，如果没有 -- 就变成创建一个新的分支；
+	
+	当修改已经add到暂存区，此时想要撤销修改时，就需要先将暂存区的修改回退到工作区，然后再工作区撤销修改；
+	命令：git reset HEAD <文件名>
+		  git checkout -- <文件名>
+		如：git reset HEAD readme.txt
+			git checkout -- readme.txt
+			
+	当已经提交到版本库，想撤销修改时，就需要进行版本回退。
+10. 删除文件：
+	（1）若文件已经提交到版本库，从版本库中删除文件：git rm <文件名>
+	（2）若文件添加到暂存区，从暂存区中删除文件：git rm -f <文件名>
+	（3）若在工作区删除了文件，但文件已添加到暂存区或者提交到版本库中，在工作区中恢复文件：git checkout -- <文件名>
+11. 创建SSH Key：ssh-keygen -t rsa -C "youremail@example.com"
+	生成.ssh文件，其中id_rsa为私钥，id_rsa.pub为公钥。
+	将id_rsa.pub中的公钥添加到gitHub.com中。
+	
