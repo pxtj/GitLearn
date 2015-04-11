@@ -9,6 +9,7 @@
 	
 5. 版本回退
 	查看历史记录：git log
+	查看最近的某次的记录：git log -<数字>	//查看最近的指定某次的记录
 	查看精简的历史记录：git log --pretty=oneline
 	查看输入命令的记录：git reflog
 	版本表示：当前版本表示为HEAD，上一个版本表示为HEAD^，上上个版本表示为HEAD^^
@@ -129,3 +130,10 @@
 	（3）删除远程标签：
 		先删除本地标签;
 		然后通过命令：git push origin :refs/tags/<tagname>
+24. 忽略特殊文件：https://github.com/github/gitignore
+
+25. 设置别名：git config --global alias.<别名> <命令名称>
+	如：git config --global alias.st status	//将status设置为st
+
+26. 配置文件：
+	（1）--global：针对当前用户起作用；如果不加，只针对当前的仓库起作用。
