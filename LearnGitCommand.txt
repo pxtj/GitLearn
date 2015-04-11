@@ -107,4 +107,25 @@
 	Git也可以手动建立跟踪关系：git branch --set-upstream <本地分支名> <远程主机名>/<远程分支名>
 		如：git branch --set-upstream master origin/dev	//指定本地master分支跟踪origin/dev分支。
 	如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名称：git pull origin
-	如果当前分支只有一个追踪分支，连远程主机名都可以省略：git pull
+	如果当前分支只有一个追踪分支，连远程主机名都可以省略：git pull  //当前分支自动与唯一一个追踪分支合并；
+	如果合并采用rebase模式，可以使用-rebase选项：
+	git pull --rebase <远程主机名> <远程分支名>:<本地分支名>
+
+22. 创建标签：
+	（1）创建命令：git tag <tagName>，如：git tag v1.0
+	查看所有标签：git tag
+	注：默认标签是创建在最新提交的commit上的，需要早前的 commit打标签时，可用用commit的ID来打标签：git tag <tagname> <ID>
+	（2）标签不是按照实际顺序列出而是按照字母排序。
+	git show <tagname> //查看标签信息；
+	（3）可以创建带有说明的标签，用-a指定标签名，-m指定说明文字。
+	如：git tag -a v0.1 -m "version 0.1 realeased"
+	通过-s用私钥签名一个标签，如：
+	git tag -s v0.2 -m "signed version 0.2"
+
+23. 操作标签
+	（1）删除标签：git tag -d <tagname>;
+	（2）创建的标签存储在本地，不会自动推送到远程，要将某个标签推送到远程，可以使用命令：git push origin <tagname>
+	一次性推送所有标签：git push origin --tags
+	（3）删除远程标签：
+		先删除本地标签;
+		然后通过命令：git push origin :refs/tags/<tagname>
