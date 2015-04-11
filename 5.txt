@@ -1,4 +1,0 @@
-this file is 5.txt, from gitlearn
-this file is 5.txt, from test/gitlearn
-
-test using git extension.
