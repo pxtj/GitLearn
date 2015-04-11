@@ -44,19 +44,22 @@
 	将id_rsa.pub中的公钥添加到gitHub.com中。
 12. 将工程合并到github.com上：在github上创建项目，然后根据提示绑定；
 	首先，关联一个远程库：
-	git remote add origin http://github.com/Username/Projectname.git 或者 
+	git remote add origin http://github.com/Username/Projectname.git 或者 	//此处的origin为一个别名，可以取其他名字。
 	git remote add origin git@github.com:path/repo-name.git
 	然后，推送到远程库中：git push -u origin master    //第一次推送master中的所有内容；
 	此后，若本地版本修改之后，只需要通过git push origin master命令就可以合并到github.com中。	
 13. 将仓库项目克隆到本地：git clone git@github.com:path/repo-name.git
-14. 创建分之
+14. 创建分支
 	（1）创建分支：git checkout -b <分支名称>
 	其中，参数-b相当于两条命令：创建并切换：git branch <分支名称>，git checkout <分支名称>；
 	如：git checkout -b dev
+	可以在创建本地分支的同时，将远程分支的内容克隆（clone）到此分支：git checkout -b <本地分支名> <远程库名称>/<远程分支名称>，如：
+	git checkout -b dev origin/dev	//创建本地分支dev的同时，将远程origin库中的dev分支克隆到本地dev分支中。
 	（2）查看当前分支：git branch //列出所有分支，并在当前分支前显示一个*；
 	（3）分支切换：git checkout <分支名称>//
 	（4）分支合并：git merge <分支名称>	//将指定分支合并到当前分支上
-	（5）删除分支：git branch -d <分支名称>	//删除指定分支
+	（5）删除分支：git branch -d <分支名称>	//删除指定分支//删除本地分支；
+	（6）删除远程分支：git push origin :<分支名称>//删除远程服务器上的分支，:代表删除分支；
 15. 当Git无法合并时，需要先手动解决冲突，然后再提交，在合并；
 	查看分支合并图命令：git log --graph //多行显示提交记录
 	或者 git log --graph --pretty=oneline //单行显示合并及提交记录，但会显示每个记录id的全称
@@ -87,4 +90,21 @@
 	如果未合并时需要删除，则可以通过 git branch -D <分支名称> 强制删除；
 21. 多人协作
 	（1）查看远程库名称：git remote 或者 git remote -v //可以显示更加详细的信息
-	（2）推送分支：git push origin <分支名称> 如：git push origin master 或者 git push origin dev
+	git branch -a//查看本地和远程分支；
+	（2）推送分支：git push origin <分支名称> //此命令默认将当前分支推送到远程的master上：如：git push origin master
+		若要将本地master分支推送到远程的dev(远程已建立此分支)，需要指定远程分支的名称，因为本地master分支默认指向origin master分支：git push origin master:<远程分支名称>，如：git push origin master:dev
+		本地除master分支，推送到远程分支时，直接使用git push origin <远程分支名> 即可。
+	（3）抓取分支：git pull
+	当有人对远程分支中的某一文件做了修改，并已完成推送，本地也对此文件做了修改，再推送时会推送失败。需要先将远程库中的文件pull（拉取）到本地，
+	然后在本地合并并解决冲突，再往远程推送。
+	git pull作用：取回远程主机某个分支的更新，在与本地的指定分支合并；
+	命令格式：git pull <远程主机名> <远程分支名>:<本地分支名>
+		如：git pull origin next:master   //取回远程origin主机的next分支，与本地的master分支合并	
+	当远程分支与当前分支合并，冒号后面的部分可以省略；
+	git pull先取回，在合并，相当于先git fetch，再做git merge：
+	（4）建立跟踪关系
+	Git可以自动在本地分支与远程分支之间，建立一种跟踪关系（tracking）。比如，在git cmaster分支lone时，所有本地分支默认与远程主机的同名分支，建立跟踪关系，也就是说，本地的master分支自动“追踪”origin/master分支。
+	Git也可以手动建立跟踪关系：git branch --set-upstream <本地分支名> <远程主机名>/<远程分支名>
+		如：git branch --set-upstream master origin/dev	//指定本地master分支跟踪origin/dev分支。
+	如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名称：git pull origin
+	如果当前分支只有一个追踪分支，连远程主机名都可以省略：git pull
