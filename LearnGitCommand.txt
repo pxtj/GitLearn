@@ -85,4 +85,6 @@
 20. feature分支：
 	每添加一个功能，最好针对此功能新建一个分支，在分支上开发完成之后，在进行合并；
 	如果未合并时需要删除，则可以通过 git branch -D <分支名称> 强制删除；
-21. 
+21. 多人协作
+	（1）查看远程库名称：git remote 或者 git remote -v //可以显示更加详细的信息
+	（2）推送分支：git push origin <分支名称> 如：git push origin master 或者 git push origin dev
